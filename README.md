@@ -1,8 +1,7 @@
-# Demo server code for MP4
-You should be able to do
-`npm install` and `nodemon server.js`
+# Backend Code for LAP
 
-Nodemon does auto-reloading the same way grunt does on the frontend.
-
-You might have to install nodemon on the vagrant machine using
+## Commands to Run
+`npm install`
 `npm install -g nodemon`
+
+Code taken from CS 498RK starter code for mp4-server

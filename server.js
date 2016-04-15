@@ -10,8 +10,9 @@ var jobRoute = require('./routes/job');
 var postsRoute = require('./routes/posts');
 var postRoute = require('./routes/post');
 
-// replace this with your Mongolab URL
-mongoose.connect('mongodb://localhost/mp4');
+// mongodb config
+var mongoConfig = require('./models/secret');
+mongoose.connect(mongoConfig.url);
 
 // Create our Express application
 var app = express();

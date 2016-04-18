@@ -21,7 +21,6 @@ postRoute.get(function(req, res) {
             }
         }
     });
-    //res.json({ message: 'Hello Post!' });
 });
 
 postRoute.put(function(req, res) {
@@ -29,7 +28,18 @@ postRoute.put(function(req, res) {
         $set: {}
     };
 
-    // set the params here
+    if (req.body.title)
+        setAttributes.$set.title = req.body.title;
+    if (req.body.author)
+        setAttributes.$set.author = req.body.author;
+    if (req.body.content)
+        setAttributes.$set.content = req.body.content;
+    if (req.body.$pull)
+        setAttributes.$pull = req.body.$pull;
+    if (req.body.$push)
+        setAttributes.$push = req.body.$push;
+
+    // TODO: Editing a comment
 
     Post.findByIdAndUpdate(req.params.id, setAttributes, {new: true}, function(err, data) {
         if (err) {
@@ -52,7 +62,7 @@ postRoute.delete(function(req, res) {
             res.json({message: 'Unable to delete post with specified id', data: err});
         } else if (data) {
             res.status(200);
-            res.json({message: 'User deleted successfully'});
+            res.json({message: 'Post deleted successfully'});
         } else {
             res.status(404);
             res.json({message: 'Unable to find post to delete'});

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // Can just do router.post('/') or get('/')
-var jobRoute = router.route('/');
+var jobRoute = router.route('/:id');
 
 jobRoute.get(function(req, res) {
     res.json({ message: 'Hello Job!' });

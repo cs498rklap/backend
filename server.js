@@ -37,9 +37,9 @@ app.use(bodyParser.urlencoded({
 // All our routes will start with /api
 app.use('/api', homeRoute);
 app.use('/api/jobs', jobsRoute);
-app.use('/api/jobs/:id', jobRoute);
+app.use('/api/jobs', jobRoute);
 app.use('/api/posts', postsRoute);
-app.use('/api/posts/:id', postRoute);
+app.use('/api/posts', postRoute);
 
 // Start the server
 app.listen(port);

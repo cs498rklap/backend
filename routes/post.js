@@ -40,19 +40,35 @@ postRoute.put(function(req, res) {
         setAttributes.$push = req.body.$push;
 
     // TODO: Editing a comment
-
-    Post.findByIdAndUpdate(req.params.id, setAttributes, {new: true}, function(err, data) {
-        if (err) {
-            res.status(500);
-            res.json({message: 'Unable to update post', data: err});
-        } else if (data) {
-            res.status(200);
-            res.json({message: 'Updated post successfully', data: data});
-        } else {
-            res.status(404);
-            res.json({message: 'Unable to find post with id to update', data: data});
-        }
-    });
+    var params;
+    if (req.body.cid) {
+        setAttributes.$set['comments.$.text'] = req.body.ctext;
+        Post.findOneAndUpdate({'_id': req.params.id, 'comments._id': req.body.cid}, setAttributes, {new: true}, function(err, data) {
+            if (err) {
+                res.status(500);
+                res.json({message: 'Unable to update post', data: err});
+            } else if (data) {
+                res.status(200);
+                res.json({message: 'Updated post successfully', data: data});
+            } else {
+                res.status(404);
+                res.json({message: 'Unable to find post with id to update', data: data});
+            }
+        });
+    } else {
+        Post.findByIdAndUpdate(req.params.id, setAttributes, {new: true}, function(err, data) {
+            if (err) {
+                res.status(500);
+                res.json({message: 'Unable to update post', data: err});
+            } else if (data) {
+                res.status(200);
+                res.json({message: 'Updated post successfully', data: data});
+            } else {
+                res.status(404);
+                res.json({message: 'Unable to find post with id to update', data: data});
+            }
+        });
+    }
 });
 
 postRoute.delete(function(req, res) {

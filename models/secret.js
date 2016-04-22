@@ -1,3 +1,3 @@
 var config = {};
-config.url = 'INSERT YOUR OWN MONGOURL HERE';
+config.url = 'mongodb://final:test@ds061325.mlab.com:61325/final-test';
 module.exports = config;

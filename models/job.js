@@ -8,7 +8,8 @@ var JobSchema = new mongoose.Schema({
     link: {type: String},
     deadline: {type: Date},
     description: {type: String},
-    tags: {type: [String]}
+    tags: {type: [String]},
+    dateCreated: { type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Job', JobSchema);

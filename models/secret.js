@@ -1,3 +1,3 @@
 var config = {};
-config.url = 'mongodb://final:test@ds061325.mlab.com:61325/final-test';
+config.url = 'mongodb://admin:admin@ds011331.mlab.com:11331/cs498rklap';
 module.exports = config;

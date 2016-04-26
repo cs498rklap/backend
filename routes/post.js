@@ -34,8 +34,6 @@ postRoute.put(function(req, res) {
         setAttributes.$set.author = req.body.author;
     if (req.body.content)
         setAttributes.$set.content = req.body.content;
-    if (req.body.tags)
-        setAttributes.$set.tags = req.body.tags;
     if (req.body.$pull)
         setAttributes.$pull = req.body.$pull;
     if (req.body.$push)

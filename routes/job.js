@@ -22,12 +22,29 @@ jobRoute.put(function(req, res) {
       res.status(404).send({ message: 'Job not found', data: []});
     }
     else {
+      var missing_fields = "";
+      if(!req.body.title) {
+        missing_fields += "Please enter a title!";
+      }
+      if(!req.body.company) {
+        missing_fields += "Please enter a company!";
+      }
+      if(!req.body.city) {
+        missing_fields += "Please enter a city!";
+      }
+      if(!req.body.state) {
+        missing_fields += "Please enter a state!";
+      }
+      if(missing_fields !== "") {
+        res.status(404).send({message: missing_fields, data:[]});
+        return;
+      }
       job.title = req.body.title;
       job.company = req.body.company;
       job.city = req.body.city;
       job.state = req.body.state;
       job.link = req.body.link;
-      job.deadline = new Date(req.body.deadline);
+      job.deadline = req.body.deadline;
       job.description = req.body.description;
       job.tags = req.body.tags;
       job.save(function(err) {

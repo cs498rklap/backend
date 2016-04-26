@@ -67,6 +67,7 @@ postsRoute.post(function(req, res) {
     var title = req.body['title'];
     var author = req.body['author'];
     var content = req.body['content'];
+
     // Force required parameters to be defined before posting to the database:
     if( (title == undefined || title == "") && (author == undefined || author == "") && (content == undefined || content == "") ) {
         res.status(500);

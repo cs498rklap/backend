@@ -31,14 +31,13 @@ var User = require('./models/user');
 var app = express();
 
 // Use environment defined port or 4000
-var port = process.env.PORT || 4000;
+var port = process.env.PORT || 3000;
 
 //Allow CORS so that backend and frontend could pe put on different servers
 var allowCrossDomain = function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
-    res.header('Access-Control-Allow-Credentials', true);
     next();
 };
 app.use(allowCrossDomain);
@@ -46,20 +45,20 @@ app.use(allowCrossDomain);
 // Use the body-parser package in our application
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: false // maybe change to false
 }));
 
 // Use the passport package in our application for user auth
 
-//app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'public')));
 
 // Possibly use extra packages needed by passport???
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(require('express-session')({
     secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
+    resave: false,
+    saveUninitialized: false
 }));
 
 app.use(passport.initialize());
@@ -77,6 +76,10 @@ app.use('/api/jobs', jobRoute);
 app.use('/api/posts', postsRoute);
 app.use('/api/posts', postRoute);
 app.use('/api/user', userRoute);
+
+app.use('/', function(req, res) {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'index.html'));
+});
 
 // Start the server
 app.listen(port);
